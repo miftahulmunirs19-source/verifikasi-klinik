@@ -3,40 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verifikasi Dokumen - Klinik Alita Medika</title>
+    <title>Sistem Verifikasi Digital - MMS</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f4f4; }
-        .container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: inline-block; }
-        .icon { font-size: 80px; color: #2ecc71; margin-bottom: 10px; } /* Centang Hijau */
-        .status { font-size: 24px; font-weight: bold; color: #2ecc71; margin-bottom: 20px; }
-        .info { font-size: 16px; color: #333; line-height: 1.6; border-top: 1px solid #eee; padding-top: 20px; }
-        .kode { font-weight: bold; color: #3498db; }
-        .footer { margin-top: 30px; font-size: 12px; color: #888; }
+        :root { --primary-color: #004d40; --secondary-color: #2ecc71; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+        .card { background: white; width: 90%; max-width: 400px; padding: 40px 20px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; border-top: 8px solid var(--primary-color); }
+        
+        /* Animasi Centang Pro */
+        .success-checkmark { width: 80px; height: 115px; margin: 0 auto; }
+        .check-icon { width: 80px; height: 80px; position: relative; border-radius: 50%; box-sizing: content-box; border: 4px solid var(--secondary-color); }
+        .check-icon::after { content: ''; position: absolute; left: 15px; top: 40px; width: 20px; height: 40px; border: solid var(--secondary-color); border-width: 0 5px 5px 0; transform: rotate(45deg); }
+        
+        .status-title { color: var(--secondary-color); font-size: 22px; font-weight: 800; letter-spacing: 1px; margin-top: 10px; text-transform: uppercase; }
+        .divider { height: 2px; background: #eee; margin: 25px 0; }
+        
+        .data-box { background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid var(--primary-color); text-align: left; }
+        .label { font-size: 12px; color: #777; text-transform: uppercase; margin-bottom: 5px; font-weight: bold; }
+        .value { font-size: 16px; color: #222; font-weight: 600; word-break: break-all; }
+        
+        .validator-info { font-size: 15px; color: #444; line-height: 1.6; margin-bottom: 10px; }
+        .validator-name { color: var(--primary-color); font-weight: 700; font-size: 17px; display: block; margin-top: 5px; }
+        
+        .timestamp { font-size: 11px; color: #999; margin-top: 25px; font-style: italic; }
+        .footer-logo { font-size: 14px; font-weight: 900; color: #ccc; margin-top: 10px; letter-spacing: 3px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="icon">✅</div>
-        <div class="status">DOKUMEN VALID & ASLI</div>
-        <div class="info">
-            <p>Dokumen dengan ID Verifikasi: <span id="kode-dokumen" class="kode">Sedang memuat...</span></p>
-            <p>Telah dinyatakan **ASLI** dan diterbitkan secara resmi oleh Klinik Alita Medika.</p>
-            <p>Divalidasi secara digital oleh:<br>
-            <strong>Ns. Miftahul Munir Suwandi, S.Kep., CWCCA., CHLQM.</strong><br>
-            Manager Klinik Alita Medika</p>
+    <div class="card">
+        <div class="success-checkmark">
+            <div class="check-icon"></div>
         </div>
-        <div class="footer">
-            <p>Waktu Scan: <span id="waktu-scan"></span></p>
-            <p>© 2026 Klinik Alita Medika. Seluruh hak cipta dilindungi.</p>
+        <div class="status-title">TERVALIDASI ASLI</div>
+        
+        <div class="divider"></div>
+        
+        <div class="data-box">
+            <div class="label">ID Verifikasi Dokumen</div>
+            <div id="kode-dokumen" class="value">Memuat...</div>
         </div>
+
+        <div class="validator-info">
+            Dokumen ini dinyatakan sah secara digital dan terdaftar dalam basis data profesional oleh:
+            <span class="validator-name">Ns. Miftahul Munir Suwandi, S.Kep., CWCCA., CHLQM.</span>
+        </div>
+
+        <div class="timestamp">
+            Waktu Verifikasi: <br> <span id="waktu-scan"></span>
+        </div>
+        
+        <div class="footer-logo">MMS DIGITAL ASSET</div>
     </div>
+
     <script>
-        // Mengambil kode unik dari link (URL)
+        // Mengambil kode unik dari link
         const urlParams = new URLSearchParams(window.location.search);
-        const kode = urlParams.get('id') || 'Tidak Diketahui';
+        const kode = urlParams.get('id') || 'UNREGISTERED';
         document.getElementById('kode-dokumen').innerText = kode;
 
-        // Menampilkan waktu scan saat ini
+        // Menampilkan waktu scan otomatis
         const sekarang = new Date();
         const opsi = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
         document.getElementById('waktu-scan').innerText = sekarang.toLocaleDateString('id-ID', opsi) + ' WIB';
