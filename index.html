@@ -3,67 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Verifikasi Digital - MMS</title>
+    <title>Validasi Dokumen - MMS</title>
     <style>
-        :root { --primary-color: #004d40; --secondary-color: #2ecc71; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
-        .card { background: white; width: 90%; max-width: 400px; padding: 40px 20px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; border-top: 8px solid var(--primary-color); }
+        :root { --teal: #00695c; --emerald: #2ecc71; --grey: #f4f6f8; }
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: var(--grey); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .card { background: white; width: 100%; max-width: 380px; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); text-align: center; position: relative; border-top: 6px solid var(--teal); }
         
-        /* Animasi Centang Pro */
-        .success-checkmark { width: 80px; height: 115px; margin: 0 auto; }
-        .check-icon { width: 80px; height: 80px; position: relative; border-radius: 50%; box-sizing: content-box; border: 4px solid var(--secondary-color); }
-        .check-icon::after { content: ''; position: absolute; left: 15px; top: 40px; width: 20px; height: 40px; border: solid var(--secondary-color); border-width: 0 5px 5px 0; transform: rotate(45deg); }
+        /* Desain Stempel Centang Pro */
+        .stamp-container { width: 90px; height: 90px; margin: 0 auto 20px auto; background-color: var(--emerald); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3); border: 4px solid white; outline: 3px solid var(--emerald); }
+        .check-mark { color: white; font-size: 50px; font-weight: bold; line-height: 1; margin-top: -5px; }
+
+        .status-text { color: var(--emerald); font-size: 20px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 25px; }
+        .divider { height: 1px; background: #eee; margin: 20px 0; }
         
-        .status-title { color: var(--secondary-color); font-size: 22px; font-weight: 800; letter-spacing: 1px; margin-top: 10px; text-transform: uppercase; }
-        .divider { height: 2px; background: #eee; margin: 25px 0; }
+        /* Kotak Data */
+        .data-card { background: #fafafa; border: 1px solid #eee; border-radius: 8px; padding: 15px; text-align: left; margin-bottom: 15px; }
+        .data-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; margin-bottom: 4px; }
+        .data-value { font-size: 15px; color: #222; font-weight: 600; word-break: break-all; }
+        .id-value { color: var(--teal); font-weight: 700; }
+
+        .info-text { font-size: 14px; color: #555; line-height: 1.6; margin: 20px 0; padding: 0 10px; }
+        .validator-name { color: #222; font-weight: 700; font-size: 15px; display: block; margin-top: 8px; white-space: nowrap; } /* Nama 1 Baris */
         
-        .data-box { background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid var(--primary-color); text-align: left; }
-        .label { font-size: 12px; color: #777; text-transform: uppercase; margin-bottom: 5px; font-weight: bold; }
-        .value { font-size: 16px; color: #222; font-weight: 600; word-break: break-all; }
-        
-        .validator-info { font-size: 15px; color: #444; line-height: 1.6; margin-bottom: 10px; }
-        .validator-name { color: var(--primary-color); font-weight: 700; font-size: 17px; display: block; margin-top: 5px; }
-        
-        .timestamp { font-size: 11px; color: #999; margin-top: 25px; font-style: italic; }
-        .footer-logo { font-size: 14px; font-weight: 900; color: #ccc; margin-top: 10px; letter-spacing: 3px; }
+        .footer-time { font-size: 11px; color: #999; margin-top: 30px; font-style: italic; border-top: 1px solid #eee; padding-top: 15px; }
     </style>
 </head>
 <body>
     <div class="card">
-        <div class="success-checkmark">
-            <div class="check-icon"></div>
+        <div class="stamp-container">
+            <div class="check-mark">✓</div>
         </div>
-        <div class="status-title">TERVALIDASI ASLI</div>
+        <div class="status-text">TERVALIDASI ASLI</div>
         
-        <div class="divider"></div>
-        
-        <div class="data-box">
-            <div class="label">ID Verifikasi Dokumen</div>
-            <div id="kode-dokumen" class="value">Memuat...</div>
+        <div class="data-card">
+            <div class="data-label">ID Dokumen</div>
+            <div id="kode-dokumen" class="data-value id-value">Memuat...</div>
         </div>
 
-        <div class="validator-info">
+        <div class="data-card">
+            <div class="data-label">Waktu TTD Dokumen</div>
+            <div id="waktu-ttd" class="data-value">Memuat...</div>
+        </div>
+
+        <div class="info-text">
             Dokumen ini dinyatakan sah secara digital dan terdaftar dalam basis data profesional oleh:
-            <span class="validator-name">Ns. Miftahul Munir Suwandi, S.Kep., CWCCA., CHLQM.</span>
+            <span class="validator-name">Ns. Miftahul Munir S, S. Kep., CWCCA., CHLQM.</span>
         </div>
 
-        <div class="timestamp">
-            Waktu Verifikasi: <br> <span id="waktu-scan"></span>
+        <div class="footer-time">
+            Waktu Verifikasi Scan: <br> <span id="waktu-scan"></span>
         </div>
-        
-        <div class="footer-logo">MMS DIGITAL ASSET</div>
     </div>
 
     <script>
-        // Mengambil kode unik dari link
+        // Mengambil kode unik dari link (URL)
         const urlParams = new URLSearchParams(window.location.search);
         const kode = urlParams.get('id') || 'UNREGISTERED';
         document.getElementById('kode-dokumen').innerText = kode;
 
-        // Menampilkan waktu scan otomatis
-        const sekarang = new Date();
+        // Mengatur Format Waktu Indonesia
         const opsi = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-        document.getElementById('waktu-scan').innerText = sekarang.toLocaleDateString('id-ID', opsi) + ' WIB';
+        
+        // 1. Waktu TTD Dokumen (Sama dengan waktu Bapak menerbitkan QR)
+        const waktuSekarang = new Date();
+        document.getElementById('waktu-ttd').innerText = waktuSekarang.toLocaleDateString('id-ID', opsi) + ' WIB';
+
+        // 2. Waktu Verifikasi Scan (Otomatis saat discan)
+        document.getElementById('waktu-scan').innerText = waktuSekarang.toLocaleDateString('id-ID', opsi) + ' WIB';
     </script>
 </body>
 </html>
