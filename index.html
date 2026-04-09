@@ -15,10 +15,10 @@
         .data-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 4px; }
         .data-value { font-size: 14px; color: #222; font-weight: 600; }
         .id-highlight { color: var(--teal); font-weight: 800; }
-        .info-text { font-size: 14px; color: #444; line-height: 1.6; margin: 25px 0 10px 0; }
-        .validator-name { color: #111; font-weight: 700; font-size: 14px; display: block; margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px; }
-        .disclaimer { font-size: 10px; color: #999; margin: 15px 0; padding: 15px 10px; font-style: italic; line-height: 1.5; text-align: center; border-top: 1px solid #f0f0f0; }
-        .footer-time { font-size: 11px; color: #bbb; margin-top: 10px; border-top: 1px dashed #ddd; padding-top: 15px; }
+        .validator-info { font-size: 14px; color: #444; line-height: 1.6; margin: 25px 0; padding: 0 10px; }
+        .validator-name { color: #111; font-weight: 700; font-size: 15px; display: block; margin: 10px 0 5px 0; }
+        .ttd-badge { display: inline-block; background: #e0f2f1; color: var(--teal); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; margin-top: 5px; }
+        .disclaimer-final { font-size: 10px; color: #aaa; font-style: italic; border-top: 1px solid #eee; padding-top: 15px; margin-top: 10px; line-height: 1.4; }
     </style>
 </head>
 <body>
@@ -36,32 +36,22 @@
             <div id="waktu-ttd" class="data-value">Memuat...</div>
         </div>
 
-        <div class="info-text">
-            Dokumen ini dinyatakan sah secara digital ditandatangani dan terdaftar dalam basis data profesional oleh:
+        <div class="validator-info">
+            Dokumen ini secara resmi telah dibubuhi
+            <span class="ttd-badge">Tanda Tangan Digital (TTD Digital)</span>
+            <br>dan divalidasi oleh:
             <span class="validator-name">Ns. Miftahul Munir S, S. Kep., CWCCA., CHLQM.</span>
         </div>
 
-        <div class="disclaimer">
-            *Dokumen ini merupakan bentuk <strong>Tanda Tangan Digital (TTD Digital)</strong> resmi internal. Ini adalah sistem verifikasi mandiri untuk menjamin keaslian dokumen dan bukan merupakan TTE tersertifikasi penyelenggara resmi pemerintah.
+        <div class="disclaimer-final">
+            *Verifikasi mandiri untuk menjamin keaslian dokumen internal profesional. Bukan merupakan TTE tersertifikasi penyelenggara resmi pemerintah.
         </div>
-
-        <div class="footer-time">Waktu Verifikasi Scan (Real-time): <br> <span id="waktu-scan"></span></div>
     </div>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        
-        // Ambil ID
-        const kode = urlParams.get('id') || 'UNREGISTERED';
-        document.getElementById('kode-dokumen').innerText = kode;
-
-        // Ambil Waktu TTD
-        const timeParam = urlParams.get('time');
-        document.getElementById('waktu-ttd').innerText = timeParam ? timeParam : "Waktu tidak tersedia";
-
-        // Waktu Scan (Real-time)
-        const opsi = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-        document.getElementById('waktu-scan').innerText = new Date().toLocaleDateString('id-ID', opsi) + ' WIB';
+        document.getElementById('kode-dokumen').innerText = urlParams.get('id') || 'UNREGISTERED';
+        document.getElementById('waktu-ttd').innerText = urlParams.get('time') || "Waktu tidak tersedia";
     </script>
 </body>
 </html>
