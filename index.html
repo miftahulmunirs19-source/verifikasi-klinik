@@ -17,8 +17,8 @@
         .id-highlight { color: var(--teal); font-weight: 800; }
         .info-text { font-size: 14px; color: #444; line-height: 1.6; margin: 25px 0 10px 0; }
         .validator-name { color: #111; font-weight: 700; font-size: 14px; display: block; margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px; }
-        .disclaimer { font-size: 10px; color: #999; margin: 15px 0; padding: 0 10px; font-style: italic; line-height: 1.4; text-align: center; }
-        .footer-time { font-size: 11px; color: #bbb; margin-top: 20px; border-top: 1px dashed #ddd; padding-top: 15px; }
+        .disclaimer { font-size: 10px; color: #999; margin: 15px 0; padding: 15px 10px; font-style: italic; line-height: 1.5; text-align: center; border-top: 1px solid #f0f0f0; }
+        .footer-time { font-size: 11px; color: #bbb; margin-top: 10px; border-top: 1px dashed #ddd; padding-top: 15px; }
     </style>
 </head>
 <body>
@@ -42,31 +42,26 @@
         </div>
 
         <div class="disclaimer">
-            *Catatan: Ini adalah sistem verifikasi internal mandiri untuk menjamin keaslian dokumen. Bukan merupakan Tanda Tangan Elektronik (TTE) tersertifikasi penyelenggara resmi pemerintah.
+            *Dokumen ini merupakan bentuk <strong>Tanda Tangan Digital (TTD Digital)</strong> resmi internal. Ini adalah sistem verifikasi mandiri untuk menjamin keaslian dokumen dan bukan merupakan TTE tersertifikasi penyelenggara resmi pemerintah.
         </div>
 
-        <div class="footer-time">Waktu Verifikasi Scan: <br> <span id="waktu-scan"></span></div>
+        <div class="footer-time">Waktu Verifikasi Scan (Real-time): <br> <span id="waktu-scan"></span></div>
     </div>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         
-        // 1. Menampilkan ID
+        // Ambil ID
         const kode = urlParams.get('id') || 'UNREGISTERED';
         document.getElementById('kode-dokumen').innerText = kode;
 
-        // 2. Menampilkan Waktu TTD dari link (dikirim oleh Google Sheets)
-        const waktuTtdLink = urlParams.get('time');
-        if (waktuTtdLink) {
-            document.getElementById('waktu-ttd').innerText = waktuTtdLink;
-        } else {
-            document.getElementById('waktu-ttd').innerText = "Waktu tidak tercatat";
-        }
+        // Ambil Waktu TTD
+        const timeParam = urlParams.get('time');
+        document.getElementById('waktu-ttd').innerText = timeParam ? timeParam : "Waktu tidak tersedia";
 
-        // 3. Menampilkan Waktu Scan (Selalu Real-time sesuai saat ini)
+        // Waktu Scan (Real-time)
         const opsi = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-        const sekarang = new Date();
-        document.getElementById('waktu-scan').innerText = sekarang.toLocaleDateString('id-ID', opsi) + ' WIB';
+        document.getElementById('waktu-scan').innerText = new Date().toLocaleDateString('id-ID', opsi) + ' WIB';
     </script>
 </body>
 </html>
