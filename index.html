@@ -5,40 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Verifikasi Digital - MMS</title>
     <style>
-        :root { --teal: #00695c; --emerald: #2ecc71; --grey: #f4f6f8; --text: #333; }
-        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--grey); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; }
-        
-        /* Container Utama */
+        :root { --teal: #00695c; --emerald: #2ecc71; --grey: #f4f6f8; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--grey); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; }
         .card { background: white; width: 100%; max-width: 380px; padding: 35px 25px; border-radius: 20px; box-shadow: 0 12px 30px rgba(0,0,0,0.1); text-align: center; border-top: 8px solid var(--teal); }
-        
-        /* Stempel Centang Pro */
         .stamp-container { width: 85px; height: 85px; margin: 0 auto 20px auto; background-color: var(--emerald); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4); border: 4px solid white; outline: 2px solid var(--emerald); }
         .check-mark { color: white; font-size: 55px; font-weight: bold; line-height: 1; margin-top: -5px; }
-
         .status-text { color: var(--emerald); font-size: 20px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 25px; }
-        
-        /* Kotak Informasi Data */
         .data-card { background: #f9f9f9; border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: left; margin-bottom: 12px; }
         .data-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 4px; }
-        .data-value { font-size: 15px; color: #222; font-weight: 600; word-break: break-all; }
-        .id-highlight { color: var(--teal); }
-
-        /* Teks Verifikasi Utama */
-        .info-text { font-size: 14px; color: #444; line-height: 1.6; margin: 25px 0 10px 0; padding: 0 5px; }
-        .validator-name { color: #111; font-weight: 700; font-size: 14px; display: block; margin-top: 10px; white-space: nowrap; border-top: 1px solid #eee; padding-top: 10px; }
-        
-        /* Disclaimer Hukum */
+        .data-value { font-size: 14px; color: #222; font-weight: 600; }
+        .id-highlight { color: var(--teal); font-weight: 800; }
+        .info-text { font-size: 14px; color: #444; line-height: 1.6; margin: 25px 0 10px 0; }
+        .validator-name { color: #111; font-weight: 700; font-size: 14px; display: block; margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px; }
         .disclaimer { font-size: 10px; color: #999; margin: 15px 0; padding: 0 10px; font-style: italic; line-height: 1.4; text-align: center; }
-
-        /* Footer Waktu Scan */
         .footer-time { font-size: 11px; color: #bbb; margin-top: 20px; border-top: 1px dashed #ddd; padding-top: 15px; }
     </style>
 </head>
 <body>
     <div class="card">
-        <div class="stamp-container">
-            <div class="check-mark">✓</div>
-        </div>
+        <div class="stamp-container"><div class="check-mark">✓</div></div>
         <div class="status-text">TERVALIDASI ASLI</div>
         
         <div class="data-card">
@@ -60,25 +45,28 @@
             *Catatan: Ini adalah sistem verifikasi internal mandiri untuk menjamin keaslian dokumen. Bukan merupakan Tanda Tangan Elektronik (TTE) tersertifikasi penyelenggara resmi pemerintah.
         </div>
 
-        <div class="footer-time">
-            Waktu Verifikasi Scan: <br> <span id="waktu-scan"></span>
-        </div>
+        <div class="footer-time">Waktu Verifikasi Scan: <br> <span id="waktu-scan"></span></div>
     </div>
 
     <script>
-        // Fungsi mengambil Parameter ID dari Link
         const urlParams = new URLSearchParams(window.location.search);
+        
+        // 1. Menampilkan ID
         const kode = urlParams.get('id') || 'UNREGISTERED';
         document.getElementById('kode-dokumen').innerText = kode;
 
-        // Pengaturan Waktu Lokal Indonesia
+        // 2. Menampilkan Waktu TTD dari link (dikirim oleh Google Sheets)
+        const waktuTtdLink = urlParams.get('time');
+        if (waktuTtdLink) {
+            document.getElementById('waktu-ttd').innerText = waktuTtdLink;
+        } else {
+            document.getElementById('waktu-ttd').innerText = "Waktu tidak tercatat";
+        }
+
+        // 3. Menampilkan Waktu Scan (Selalu Real-time sesuai saat ini)
         const opsi = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
         const sekarang = new Date();
-        const waktuString = sekarang.toLocaleDateString('id-ID', opsi) + ' WIB';
-
-        // Menampilkan Waktu pada Halaman
-        document.getElementById('waktu-ttd').innerText = waktuString;
-        document.getElementById('waktu-scan').innerText = waktuString;
+        document.getElementById('waktu-scan').innerText = sekarang.toLocaleDateString('id-ID', opsi) + ' WIB';
     </script>
 </body>
 </html>
