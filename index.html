@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Verifikasi Digital - MMS</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
-        :root { --teal: #00695c; --emerald: #2ecc71; --grey: #f4f6f8; }
+        :root { --teal: #00695c; --emerald: #2ecc71; --grey: #f4f6f8; --navy: #003366; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--grey); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; }
-        .card { background: white; width: 100%; max-width: 380px; padding: 35px 25px; border-radius: 20px; box-shadow: 0 12px 30px rgba(0,0,0,0.1); text-align: center; border-top: 8px solid var(--teal); }
+        .card { background: white; width: 100%; max-width: 380px; padding: 35px 25px; border-radius: 20px; box-shadow: 0 12px 30px rgba(0,0,0,0.1); text-align: center; border-top: 8px solid var(--teal); position: relative; }
+        
+        /* Tambahan CSS untuk Logo Monogram MMS Bapak */
+        .brand-logo { width: 70px; height: 70px; margin: 0 auto 15px auto; display: block; border-radius: 50%; object-fit: cover; }
+        
         .stamp-container { width: 85px; height: 85px; margin: 0 auto 20px auto; background-color: var(--emerald); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4); border: 4px solid white; outline: 2px solid var(--emerald); }
         .check-mark { color: white; font-size: 55px; font-weight: bold; line-height: 1; margin-top: -5px; }
         .status-text { color: var(--emerald); font-size: 20px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 25px; }
@@ -23,6 +28,8 @@
 </head>
 <body>
     <div class="card">
+        <img src="logo-mms.png" alt="Logo MMS" class="brand-logo" onerror="this.style.display='none'">
+
         <div class="stamp-container"><div class="check-mark">✓</div></div>
         <div class="status-text">TERVALIDASI ASLI</div>
         
@@ -50,8 +57,14 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        document.getElementById('kode-dokumen').innerText = urlParams.get('id') || 'UNREGISTERED';
-        document.getElementById('waktu-ttd').innerText = urlParams.get('time') || "Waktu tidak tersedia";
+        
+        // Ambil Data ID
+        const idParam = urlParams.get('id');
+        document.getElementById('kode-dokumen').innerText = idParam || 'UNREGISTERED';
+        
+        // Ambil Data Waktu dan Decode agar tampilannya rapi (tidak ada %20)
+        const timeParam = urlParams.get('time');
+        document.getElementById('waktu-ttd').innerText = timeParam ? decodeURIComponent(timeParam) : "Waktu tidak tersedia";
     </script>
 </body>
 </html>
