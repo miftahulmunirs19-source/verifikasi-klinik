@@ -6,32 +6,138 @@
     <title>Sistem Verifikasi Digital - MMS</title>
     <style>
         :root { --teal: #00695c; --emerald: #2ecc71; --grey: #f4f6f8; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--grey); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; }
-        .card { background: white; width: 100%; max-width: 380px; padding: 35px 25px; border-radius: 20px; box-shadow: 0 12px 30px rgba(0,0,0,0.1); text-align: center; border-top: 8px solid var(--teal); box-sizing: border-box; }
-        
-        /* Agar centang selalu pas di tengah lingkaran baik di HP maupun Laptop */
-        .stamp-container { 
-            width: 85px; height: 85px; margin: 0 auto 20px auto; 
-            background-color: var(--emerald); border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; 
-            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4); 
-            border: 4px solid white; outline: 2px solid var(--emerald); 
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            background-color: var(--grey); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            padding: 20px; 
+        }
+        .card { 
+            background: white; 
+            width: 100%; 
+            max-width: 380px; 
+            padding: 35px 25px; 
+            border-radius: 20px; 
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1); 
+            text-align: center; 
+            border-top: 8px solid var(--teal); 
+            box-sizing: border-box;
         }
         
+        /* Container Centang Hijau (Presisi di HP & Laptop) */
+        .stamp-container { 
+            width: 85px; 
+            height: 85px; 
+            margin: 0 auto 20px auto; 
+            background-color: var(--emerald); 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4); 
+            border: 4px solid white; 
+            outline: 2px solid var(--emerald); 
+        }
+        
+        /* Simbol Centang (✓) */
         .check-mark { 
-            color: white; font-size: 50px; font-weight: bold; 
-            line-height: 0; margin: 0; display: block;
+            color: white; 
+            font-size: 55px; 
+            font-weight: bold; 
+            line-height: 0; 
+            margin: 0; 
+            display: block;
         }
 
-        .status-text { color: var(--emerald); font-size: 18px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 25px; }
-        .data-card { background: #f9f9f9; border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: left; margin-bottom: 12px; }
-        .data-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 4px; }
-        .data-value { font-size: 14px; color: #222; font-weight: 600; word-break: break-word; }
-        .id-highlight { color: var(--teal); font-weight: 800; }
-        .validator-info { font-size: 14px; color: #444; line-height: 1.6; margin: 25px 0; padding: 0 10px; }
-        .validator-name { color: #111; font-weight: 700; font-size: 15px; display: block; margin: 10px 0 5px 0; }
-        .ttd-badge { display: inline-block; background: #e0f2f1; color: var(--teal); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; margin-top: 5px; }
-        .disclaimer-final { font-size: 10px; color: #aaa; font-style: italic; border-top: 1px solid #eee; padding-top: 15px; margin-top: 10px; line-height: 1.4; }
+        .status-text { 
+            color: var(--emerald); 
+            font-size: 18px; 
+            font-weight: 800; 
+            letter-spacing: 1.5px; 
+            text-transform: uppercase; 
+            margin-bottom: 25px; 
+        }
+
+        /* Kotak Data Dokumen */
+        .data-card { 
+            background: #f9f9f9; 
+            border: 1px solid #eee; 
+            border-radius: 12px; 
+            padding: 15px; 
+            text-align: left; 
+            margin-bottom: 12px; 
+        }
+        .data-label { 
+            font-size: 10px; 
+            color: #888; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            font-weight: 700; 
+            margin-bottom: 4px; 
+        }
+        .data-value { 
+            font-size: 14px; 
+            color: #222; 
+            font-weight: 600; 
+            word-break: break-word; 
+        }
+        .id-highlight { 
+            color: var(--teal); 
+            font-weight: 800; 
+        }
+        
+        /* Bagian Penandatangan */
+        .validator-info { 
+            font-size: 13px; 
+            color: #444; 
+            line-height: 1.6; 
+            margin: 25px 0; 
+            padding: 0; 
+        }
+        
+        /* Nama Bapak (Diatur tetap 1 baris & Font lebih kecil) */
+        .validator-name { 
+            color: #111; 
+            font-weight: 700; 
+            font-size: 13px; 
+            display: block; 
+            margin: 10px 0 5px 0; 
+            white-space: nowrap; 
+            overflow: hidden;
+            text-overflow: ellipsis; /* Jika sangat panjang, akan muncul titik-titik di ujung */
+        }
+
+        .ttd-badge { 
+            display: inline-block; 
+            background: #e0f2f1; 
+            color: var(--teal); 
+            font-size: 10px; 
+            font-weight: 700; 
+            padding: 2px 8px; 
+            border-radius: 4px; 
+            text-transform: uppercase; 
+            margin-top: 5px; 
+        }
+        
+        .disclaimer-final { 
+            font-size: 10px; 
+            color: #aaa; 
+            font-style: italic; 
+            border-top: 1px solid #eee; 
+            padding-top: 15px; 
+            margin-top: 10px; 
+            line-height: 1.4; 
+        }
+
+        /* Penyesuaian khusus layar HP kecil */
+        @media (max-width: 360px) {
+            .validator-name { font-size: 11px; }
+            .card { padding: 25px 15px; }
+        }
     </style>
 </head>
 <body>
@@ -67,13 +173,17 @@
     </div>
 
     <script>
+        // Mengambil data dari URL browser
         const urlParams = new URLSearchParams(window.location.search);
         
-        // Mengambil data dari link QR
+        // Ambil dan tampilkan Nama Dokumen
         const docName = urlParams.get('doc');
         document.getElementById('nama-dokumen').innerText = docName ? decodeURIComponent(docName) : 'Tidak Diketahui';
+
+        // Ambil dan tampilkan ID
         document.getElementById('kode-dokumen').innerText = urlParams.get('id') || 'UNREGISTERED';
         
+        // Ambil dan tampilkan Waktu
         const timeParam = urlParams.get('time');
         document.getElementById('waktu-ttd').innerText = timeParam ? decodeURIComponent(timeParam) : "Waktu tidak tersedia";
     </script>
