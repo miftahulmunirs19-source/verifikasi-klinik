@@ -27,6 +27,11 @@
         <div class="status-text">TERVALIDASI ASLI</div>
         
         <div class="data-card">
+            <div class="data-label">Nama Dokumen</div>
+            <div id="nama-dokumen" class="data-value">Memuat...</div>
+        </div>
+
+        <div class="data-card">
             <div class="data-label">ID Verifikasi Dokumen</div>
             <div id="kode-dokumen" class="data-value id-highlight">Memuat...</div>
         </div>
@@ -50,8 +55,15 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
+        
+        // Mengambil data nama dokumen dari parameter 'doc'
+        const docName = urlParams.get('doc');
+        document.getElementById('nama-dokumen').innerText = docName ? decodeURIComponent(docName) : 'Tidak Diketahui';
+
+        // Mengambil data ID
         document.getElementById('kode-dokumen').innerText = urlParams.get('id') || 'UNREGISTERED';
-        // Perbaikan agar teks jam rapi (tanpa %20)
+        
+        // Mengambil data Waktu
         const timeParam = urlParams.get('time');
         document.getElementById('waktu-ttd').innerText = timeParam ? decodeURIComponent(timeParam) : "Waktu tidak tersedia";
     </script>
