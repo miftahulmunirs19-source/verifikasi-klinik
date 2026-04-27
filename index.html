@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verifikasi Dokumen Digital - MMS</title>
+    <title>Sistem Verifikasi Digital - MMS</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
@@ -38,7 +38,7 @@
             border: 1px solid var(--border-color);
         }
 
-        /* HEADER BADGE GRADIENT */
+        /* HEADER DENGAN SHIELD + CENTANG SUPER BESAR */
         .header-badge {
             background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
             color: var(--white);
@@ -46,68 +46,74 @@
             display: flex; align-items: center; gap: 20px;
         }
 
-        /* SHIELD + CENTANG BIRU SUPER BESAR */
         .shield-box {
-            position: relative; width: 64px; height: 64px;
+            position: relative; width: 68px; height: 68px;
             display: flex; align-items: center; justify-content: center; flex-shrink: 0;
         }
         .img-shield { position: absolute; width: 100%; height: 100%; object-fit: contain; }
-        .img-check { position: relative; width: 40px; height: 40px; z-index: 2; }
+        .img-check { position: relative; width: 44px; height: 44px; z-index: 2; }
 
         .header-title {
             font-size: 14px; font-weight: 800; text-transform: uppercase;
             letter-spacing: 1.5px; margin: 0; line-height: 1.3;
         }
 
-        .card-content { padding: 32px; }
+        .card-content { padding: 32px 35px; }
 
-        /* BRANDING ALITA (SPACING 24px) */
+        /* BRANDING ALITA (PROPORSIONAL) */
         #section-alita {
             display: none; align-items: center; gap: 16px;
             margin-bottom: 24px; padding-bottom: 24px;
             border-bottom: 1px solid var(--border-color);
         }
-        .logo-alita { height: 64px; width: auto; object-fit: contain; }
+        .logo-alita { height: 68px; width: auto; object-fit: contain; }
         .brand-name { font-size: 16px; font-weight: 700; color: var(--dark-blue); margin: 0; }
         .motto { font-size: 11px; font-style: italic; color: var(--text-sec); margin: 4px 0 0 0; }
 
-        /* DATA ROW SYSTEM (8px spacing) */
+        /* DATA INFO ROWS (8px spacing) */
         .info-item {
             display: flex; gap: 20px; margin-bottom: 24px; align-items: flex-start;
         }
 
         .icon-box {
-            font-size: 20px; color: var(--primary-blue);
+            font-size: 24px; color: var(--primary-blue);
             width: 32px; text-align: center; margin-top: 4px;
         }
 
         .label {
-            font-size: 11px; font-weight: 600; color: var(--text-label);
-            text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px;
+            font-size: 11px; font-weight: 700; color: var(--text-label);
+            text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px;
         }
 
         .value {
-            font-size: 15px; font-weight: 700; color: var(--primary-blue);
+            font-size: 15.5px; font-weight: 700; color: var(--primary-blue);
             line-height: 1.4; display: block;
         }
 
-        /* NAMA 1 BARIS & PROPORSIONAL */
-        .val-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 270px; }
+        /* NAMA 1 BARIS - TIDAK NABRAK SAMPING */
+        .val-name { 
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
+            max-width: 270px; 
+        }
         
         .sub-value { font-size: 13px; color: var(--text-sec); margin-top: 2px; display: block; }
 
-        /* POIN VERIFIKASI SEJAJAR DENGAN POIN LAIN */
+        /* FOOTER VERIFIKASI SEJAJAR - PERISAI DI-SHADOW AGAR JELAS */
         .footer-shield-container {
-            position: relative; width: 32px; height: 32px;
-            background-color: var(--bg-soft); border-radius: 8px;
+            position: relative; width: 42px; height: 42px;
+            background-color: var(--bg-soft); border-radius: 10px;
             display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+            border: 1px solid #D0E1FD;
         }
-        .img-shield-min { position: absolute; width: 80%; height: 80%; object-fit: contain; }
-        .img-check-min { position: relative; width: 18px; height: 18px; z-index: 2; }
+        .img-shield-min { 
+            position: absolute; width: 80%; height: 80%; object-fit: contain; 
+            filter: drop-shadow(0px 2px 4px rgba(26, 43, 73, 0.25)); /* Agar putih terlihat di atas biru muda */
+        }
+        .img-check-min { position: relative; width: 22px; height: 22px; z-index: 2; }
 
         @media (max-width: 400px) {
             .val-name { max-width: 200px; font-size: 14px; }
-            .header-title { font-size: 12px; }
+            .card-content { padding: 32px 20px; }
         }
     </style>
 </head>
@@ -119,7 +125,7 @@
                 <img src="https://raw.githubusercontent.com/miftahulmunirs19-source/verifikasi-klinik/main/logo-shield.png" class="img-shield" alt="Shield">
                 <img src="https://raw.githubusercontent.com/miftahulmunirs19-source/verifikasi-klinik/main/centang_biru.png" class="img-check" alt="Check">
             </div>
-            <p class="header-title">TTD Digital<br>Terverifikasi</p>
+            <p class="header-title">TTD DIGITAL<br>TERVERIFIKASI</p>
         </div>
 
         <div class="card-content">
@@ -135,7 +141,7 @@
                 <div class="icon-box"><i class="fa-regular fa-file-lines"></i></div>
                 <div>
                     <div class="label">Nama Dokumen</div>
-                    <div id="txt-doc" class="value">Surat Keterangan Sehat</div>
+                    <div id="txt-doc" class="value">Memuat...</div>
                 </div>
             </div>
 
@@ -148,12 +154,12 @@
                 </div>
             </div>
 
-            <div class="info-row" style="display: flex; gap: 20px; margin-bottom: 24px;">
-                <div class="icon-box" style="margin-top: 4px;"><i class="fa-regular fa-calendar-check"></i></div>
+            <div class="info-item">
+                <div class="icon-box"><i class="fa-regular fa-calendar-check"></i></div>
                 <div>
                     <div class="label">Tanggal & Waktu</div>
-                    <div id="txt-date" class="value">18 Mei 2024</div>
-                    <div id="txt-hour" class="sub-value">14:35 WIB</div>
+                    <div id="txt-date" class="value">Memuat...</div>
+                    <div id="txt-hour" class="sub-value">Memuat...</div>
                 </div>
             </div>
 
@@ -161,19 +167,19 @@
                 <div class="icon-box"><i class="fa-regular fa-id-card"></i></div>
                 <div>
                     <div class="label">ID Dokumen</div>
-                    <div id="txt-id" class="value" style="font-family: monospace; letter-spacing: 0.5px;">KAM/TD/2024/0518/0001</div>
+                    <div id="txt-id" class="value">Memuat...</div>
                 </div>
             </div>
 
-            <div class="info-item">
+            <div class="info-item" style="align-items: center; margin-top: 8px;">
                 <div class="footer-shield-container">
                     <img src="https://raw.githubusercontent.com/miftahulmunirs19-source/verifikasi-klinik/main/logo-shield.png" class="img-shield-min" alt="Shield Small">
                     <img src="https://raw.githubusercontent.com/miftahulmunirs19-source/verifikasi-klinik/main/centang_biru.png" class="img-check-min" alt="Check Small">
                 </div>
                 <div>
-                    <div class="label">Verifikasi</div>
-                    <div class="sub-value" style="color: var(--dark-blue); font-weight: 500;">
-                        Dokumen ini telah ditandatangani secara digital dan terenkripsi.
+                    <div class="label" style="margin-bottom: 2px;">Verifikasi</div>
+                    <div class="sub-value" style="color: var(--dark-blue); font-weight: 500; font-size: 12.5px; line-height: 1.4;">
+                        Dokumen ditandatangani secara digital dan terenkripsi.
                     </div>
                 </div>
             </div>
@@ -183,24 +189,22 @@
     <script>
         const params = new URLSearchParams(window.location.search);
         
-        // Logika Tampil Logo Alita
+        // Cek Nama Penerima
         const pname = params.get('pname') ? decodeURIComponent(params.get('pname')).toLowerCase() : '';
         if (pname.includes('alita medika')) {
             document.getElementById('section-alita').style.display = 'flex';
         }
 
-        // Ambil Data Verifikasi
-        if(params.get('doc')) document.getElementById('txt-doc').innerText = decodeURIComponent(params.get('doc'));
-        if(params.get('time')) document.getElementById('txt-date').innerText = decodeURIComponent(params.get('time'));
-        if(params.get('hour')) document.getElementById('txt-hour').innerText = decodeURIComponent(params.get('hour'));
+        // Tampilkan Data Verifikasi
+        document.getElementById('txt-doc').innerText = decodeURIComponent(params.get('doc') || 'Dokumen Resmi');
+        document.getElementById('txt-date').innerText = decodeURIComponent(params.get('time') || '-');
+        document.getElementById('txt-hour').innerText = decodeURIComponent(params.get('hour') || '-');
         
         const idEnc = params.get('id');
-        if(idEnc) {
-            try {
-                document.getElementById('txt-id').innerText = atob(idEnc);
-            } catch(e) {
-                document.getElementById('txt-id').innerText = idEnc;
-            }
+        try {
+            document.getElementById('txt-id').innerText = idEnc ? atob(idEnc) : 'UNREGISTERED';
+        } catch(e) {
+            document.getElementById('txt-id').innerText = idEnc || 'UNREGISTERED';
         }
     </script>
 </body>
