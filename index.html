@@ -5,181 +5,152 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Verifikasi Digital - MMS</title>
     <style>
-        :root { --teal: #00695c; --emerald: #2ecc71; --grey: #f4f6f8; }
-        body { 
-            font-family: 'Segoe UI', Arial, sans-serif; 
-            background-color: var(--grey); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            min-height: 100vh; 
-            margin: 0; 
-            padding: 20px; 
-        }
-        .card { 
-            background: white; 
-            width: 100%; 
-            max-width: 380px; 
-            padding: 35px 25px; 
-            border-radius: 20px; 
-            box-shadow: 0 12px 30px rgba(0,0,0,0.1); 
-            text-align: center; 
-            border-top: 8px solid var(--teal); 
-            box-sizing: border-box;
-        }
+        :root { --teal: #00695c; --blue: #1a73e8; --grey-light: #f4f7f9; --text-dark: #222; --text-light: #666; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--grey-light); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
         
-        /* Container Centang Hijau (Presisi di HP & Laptop) */
-        .stamp-container { 
-            width: 85px; 
-            height: 85px; 
-            margin: 0 auto 20px auto; 
-            background-color: var(--emerald); 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4); 
-            border: 4px solid white; 
-            outline: 2px solid var(--emerald); 
-        }
+        .card { background: white; width: 100%; max-width: 480px; padding: 0; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.06); border: 1px solid #e1e8ed; overflow: hidden; position: relative; }
         
-        /* Simbol Centang (✓) */
-        .check-mark { 
-            color: white; 
-            font-size: 55px; 
-            font-weight: bold; 
-            line-height: 0; 
-            margin: 0; 
-            display: block;
-        }
+        /* Bedge Header (Biru) */
+        .badge-header { background-color: var(--blue); color: white; display: flex; align-items: center; padding: 15px 25px; border-bottom: 1px solid #e1e8ed; }
+        .badge-icon { font-size: 24px; font-weight: bold; margin-right: 15px; }
+        .badge-title { font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
 
-        .status-text { 
-            color: var(--emerald); 
-            font-size: 18px; 
-            font-weight: 800; 
-            letter-spacing: 1.5px; 
-            text-transform: uppercase; 
-            margin-bottom: 25px; 
-        }
+        .card-content { padding: 30px; }
 
-        /* Kotak Data Dokumen */
-        .data-card { 
-            background: #f9f9f9; 
-            border: 1px solid #eee; 
-            border-radius: 12px; 
-            padding: 15px; 
-            text-align: left; 
-            margin-bottom: 12px; 
-        }
-        .data-label { 
-            font-size: 10px; 
-            color: #888; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            font-weight: 700; 
-            margin-bottom: 4px; 
-        }
-        .data-value { 
-            font-size: 14px; 
-            color: #222; 
-            font-weight: 600; 
-            word-break: break-word; 
-        }
-        .id-highlight { 
-            color: var(--teal); 
-            font-weight: 800; 
-        }
+        /* Tampilan Logo Ganda (Alita & MMS) */
+        .branding-container { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 30px; text-align: left; }
+        .branding-row { display: flex; align-items: center; width: 100%; }
         
-        /* Bagian Penandatangan */
-        .validator-info { 
-            font-size: 13px; 
-            color: #444; 
-            line-height: 1.6; 
-            margin: 25px 0; 
-            padding: 0; 
-        }
+        /* Logo Utama */
+        .logo-main { max-height: 70px; margin-right: 20px; }
         
-        /* Nama Bapak (Diatur tetap 1 baris & Font lebih kecil) */
-        .validator-name { 
-            color: #111; 
-            font-weight: 700; 
-            font-size: 13px; 
-            display: block; 
-            margin: 10px 0 5px 0; 
-            white-space: nowrap; 
-            overflow: hidden;
-            text-overflow: ellipsis; /* Jika sangat panjang, akan muncul titik-titik di ujung */
-        }
+        /* Text Branding */
+        .branding-text { display: flex; flex-direction: column; }
+        .brand-name { color: #004d40; font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 4px 0; }
+        .motto { color: var(--text-light); font-size: 10px; font-style: italic; line-height: 1.4; margin: 0; white-space: nowrap; }
 
-        .ttd-badge { 
-            display: inline-block; 
-            background: #e0f2f1; 
-            color: var(--teal); 
-            font-size: 10px; 
-            font-weight: 700; 
-            padding: 2px 8px; 
-            border-radius: 4px; 
-            text-transform: uppercase; 
-            margin-top: 5px; 
-        }
-        
-        .disclaimer-final { 
-            font-size: 10px; 
-            color: #aaa; 
-            font-style: italic; 
-            border-top: 1px solid #eee; 
-            padding-top: 15px; 
-            margin-top: 10px; 
-            line-height: 1.4; 
-        }
+        /* Pembatas Elemen */
+        .divider-main { height: 1px; background-color: #eee; margin: 25px 0; border: none; }
 
-        /* Penyesuaian khusus layar HP kecil */
-        @media (max-width: 360px) {
-            .validator-name { font-size: 11px; }
-            .card { padding: 25px 15px; }
+        /* Blok Data (Sepert Model Contoh) */
+        .data-row { display: flex; align-items: flex-start; margin-bottom: 20px; text-align: left; }
+        .data-icon-container { width: 32px; font-size: 22px; color: var(--text-light); margin-right: 18px; display: flex; justify-content: center; margin-top: 1px; }
+        .data-text { flex: 1; display: flex; flex-direction: column; }
+        
+        .data-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; margin-bottom: 4px; }
+        
+        .data-value { font-size: 13px; color: var(--text-dark); font-weight: 600; line-height: 1.5; word-break: break-word; }
+        .validator-name { color: #111; font-weight: 700; font-size: 14px; }
+        .id-highlight { color: var(--blue); font-weight: 800; font-size: 13px; }
+        
+        /* Area Status Verifikasi Akhir */
+        .final-status { background-color: #e8f0fe; border-left: 5px solid var(--blue); border-radius: 6px; padding: 15px; text-align: left; margin-top: 10px; }
+        .status-msg { font-size: 12px; color: #444; line-height: 1.6; }
+        .status-msg b { color: var(--blue); }
+
+        .hidden { display: none !important; }
+        
+        @media (max-width: 480px) {
+            .card { max-width: 100%; border-radius: 8px; }
+            .card-content { padding: 25px 20px; }
+            .branding-row { flex-direction: column; align-items: flex-start; text-align: left; }
+            .logo-main { margin-right: 0; margin-bottom: 15px; max-height: 60px; }
+            .motto { white-space: normal; }
         }
     </style>
 </head>
 <body>
     <div class="card">
-        <div class="stamp-container"><div class="check-mark">✓</div></div>
-        <div class="status-text">TERVALIDASI ASLI</div>
-        
-        <div class="data-card">
-            <div class="data-label">Nama Dokumen</div>
-            <div id="nama-dokumen" class="data-value">Memuat...</div>
+        <div class="badge-header">
+            <span class="badge-icon">✓</span>
+            <span class="badge-title">TTD Digital Terverifikasi</span>
         </div>
 
-        <div class="data-card">
-            <div class="data-label">ID Verifikasi Dokumen</div>
-            <div id="kode-dokumen" class="data-value id-highlight">Memuat...</div>
-        </div>
+        <div class="card-content">
+            <div id="branding" class="branding-container">
+                <div class="branding-row">
+                    <img id="logo-main" src="https://miftahulmunirs19-source.github.io/verifikasi-klinik/logo-alita.png" alt="Logo Utama" class="logo-main">
+                    <div class="branding-text">
+                        <p id="brand-name" class="brand-name">KLINIK ALITA MEDIKA</p>
+                        <p id="motto" class="motto hidden">kepuasan pelanggan adalah kebahagian kami</p>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="divider-main">
 
-        <div class="data-card">
-            <div class="data-label">Waktu Penandatanganan</div>
-            <div id="waktu-ttd" class="data-value">Memuat...</div>
-        </div>
+            <div class="data-row">
+                <div class="data-icon-container">👤</div>
+                <div class="data-text">
+                    <div class="data-label">Ditandatangani oleh</div>
+                    <div id="validator-name" class="data-value validator-name">Ns. Miftahul Munir S, S. Kep., CWCCA., CHLQM.</div>
+                </div>
+            </div>
 
-        <div class="validator-info">
-            Dokumen ini secara resmi telah dibubuhi
-            <span class="ttd-badge">Tanda Tangan Digital (TTD Digital)</span>
-            <br>dan divalidasi oleh:
-            <span class="validator-name">Ns. Miftahul Munir S, S. Kep., CWCCA., CHLQM.</span>
-        </div>
+            <div class="data-row">
+                <div class="data-icon-container">📅</div>
+                <div class="data-text">
+                    <div class="data-label">Tanggal & Waktu Penandatanganan</div>
+                    <div id="waktu-ttd" class="data-value">Memuat...</div>
+                </div>
+            </div>
 
-        <div class="disclaimer-final">
-            *Verifikasi mandiri untuk menjamin keaslian dokumen internal profesional. Bukan merupakan TTE tersertifikasi penyelenggara resmi pemerintah.
+            <div class="data-row">
+                <div class="data-icon-container">🆔</div>
+                <div class="data-text">
+                    <div class="data-label">ID Verifikasi Dokumen</div>
+                    <div id="kode-dokumen" class="data-value id-highlight">Memuat...</div>
+                </div>
+            </div>
+
+            <div class="data-row">
+                <div class="data-icon-container">📄</div>
+                <div class="data-text">
+                    <div class="data-label">Nama Dokumen</div>
+                    <div id="nama-dokumen" class="data-value">Memuat...</div>
+                </div>
+            </div>
+
+            <div class="final-status">
+                <div class="data-row" style="margin-bottom: 0;">
+                    <div class="data-icon-container" style="font-size: 18px; margin-top: -3px; color: var(--blue);">✓</div>
+                    <div class="data-text">
+                        <div class="data-label" style="color: var(--blue); font-weight: bold;">Verifikasi</div>
+                        <div class="status-msg">
+                            Dokumen ini telah ditandatangani secara digital dan <b>terenkripsi</b>.
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         
-        // Ambil data Nama Dokumen
+        // --- LOGIKA MENAMPILKAN LOGO ALITA JIKA PENERIMA TERISI ALITA ---
+        const pname = urlParams.get('pname') ? decodeURIComponent(urlParams.get('pname')).toLowerCase() : '';
+        const logoMain = document.getElementById('logo-main');
+        const mottoText = document.getElementById('motto');
+        const brandName = document.getElementById('brand-name');
+
+        if (pname.includes('alita medika')) {
+            // Gunakan logo Alita yang sudah ada di repositori Bapak
+            logoMain.src = "https://miftahulmunirs19-source.github.io/verifikasi-klinik/logo-alita.png";
+            mottoText.classList.remove('hidden');
+            brandName.classList.add('hidden'); // Sembunyikan tulisan jika pakai logo tulisan
+        } else {
+            // Kembali ke logo pribadi MMS Bapak
+            logoMain.src = "https://miftahulmunirs19-source.github.io/verifikasi-klinik/logo-mms.png";
+            brandName.innerText = "MMS PROFESSIONAL";
+            mottoText.classList.add('hidden');
+            brandName.classList.remove('hidden');
+        }
+
+        // --- MENGAMBIL DATA VERIFIKASI ---
         const docName = urlParams.get('doc');
         document.getElementById('nama-dokumen').innerText = docName ? decodeURIComponent(docName) : 'Tidak Diketahui';
 
-        // Ambil ID dan DECODE kembali agar muncul MMS-xxx (Bukan kode acak)
         const idParam = urlParams.get('id');
         try {
             document.getElementById('kode-dokumen').innerText = idParam ? atob(idParam) : 'UNREGISTERED';
@@ -187,7 +158,6 @@
             document.getElementById('kode-dokumen').innerText = idParam || 'UNREGISTERED';
         }
         
-        // Ambil data Waktu
         const timeParam = urlParams.get('time');
         document.getElementById('waktu-ttd').innerText = timeParam ? decodeURIComponent(timeParam) : "Waktu tidak tersedia";
     </script>
