@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Verifikasi Digital - MMS</title>
+    <title>Verifikasi Dokumen Digital - MMS</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
-            --blue-royal: #1a73e8;
-            --text-dark: #202124;
-            --text-grey: #5f6368;
-            --bg-page: #f4f7f9;
+            /* Warna Biru Lebih Gelap (Deep Midnight Blue) untuk kesan Pro */
+            --blue-pro: #0a2351; 
+            --blue-light: #1a73e8;
+            --text-dark: #1a1c1e;
+            --text-grey: #444746;
+            --bg-page: #eef2f6;
         }
 
         body {
@@ -27,30 +29,31 @@
         .card {
             background-color: white;
             width: 100%;
-            max-width: 420px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(26, 115, 232, 0.1);
+            max-width: 440px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(10, 35, 81, 0.15);
             overflow: hidden;
-            border: 1px solid #e1e8ed;
+            border: 1px solid #d1d9e0;
         }
 
-        /* HEADER DENGAN SHIELD + CENTANG BERLAPIS */
+        /* HEADER BADGE LEBIH BESAR */
         .header-badge {
-            background-color: var(--blue-royal);
+            background-color: var(--blue-pro);
             color: white;
-            padding: 22px 24px;
+            padding: 28px 24px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 18px;
         }
 
         .shield-container {
             position: relative;
-            width: 35px;
-            height: 35px;
+            width: 45px; /* Diperbesar */
+            height: 45px; /* Diperbesar */
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
         }
 
         .img-shield {
@@ -62,94 +65,106 @@
 
         .img-check {
             position: relative;
-            width: 18px;
-            height: 18px;
+            width: 24px; /* Diperbesar */
+            height: 24px; /* Diperbesar */
             z-index: 2;
         }
 
         .header-title {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.8px;
             margin: 0;
         }
 
-        .card-content { padding: 30px 24px; }
+        .card-content { padding: 35px 28px; }
 
-        /* BRANDING ALITA SECTION */
+        /* BRANDING ALITA */
         #section-alita {
             display: none;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 18px;
+            margin-bottom: 35px;
             padding-bottom: 25px;
-            border-bottom: 1px solid #f1f1f1;
+            border-bottom: 1px solid #f0f0f0;
         }
-        .logo-alita { height: 70px; width: auto; }
-        .brand-name { font-size: 16px; font-weight: 900; color: #0d47a1; margin: 0; }
-        .motto { font-size: 10.5px; font-style: italic; color: var(--text-grey); margin: 3px 0 0 0; }
+        .logo-alita { height: 75px; width: auto; }
+        .brand-name { font-size: 17px; font-weight: 900; color: #0d47a1; margin: 0; }
+        .motto { font-size: 11px; font-style: italic; color: var(--text-grey); margin: 4px 0 0 0; }
 
-        /* LIST DATA STYLE */
+        /* DATA ROW LEBIH PROPORSIONAL */
         .info-row {
             display: flex;
-            gap: 20px;
-            margin-bottom: 25px;
+            gap: 22px;
+            margin-bottom: 30px;
             align-items: flex-start;
         }
 
         .icon-line {
-            font-size: 18px;
-            color: var(--blue-royal); /* Ikon Garis Biru Selaras */
-            width: 24px;
+            font-size: 22px; /* Diperbesar agar seimbang */
+            color: var(--blue-pro); 
+            width: 28px;
             text-align: center;
-            margin-top: 3px;
+            margin-top: 4px;
         }
 
         .label-pro {
-            font-size: 10px;
-            font-weight: 500;
-            color: var(--text-grey);
+            font-size: 11px;
+            font-weight: 700;
+            color: #80868b;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 2px;
+            letter-spacing: 0.8px;
+            margin-bottom: 4px;
             display: block;
         }
 
         .value-bold-blue {
-            font-size: 15px;
+            font-size: 16px; /* Diperbesar */
             font-weight: 700;
-            color: var(--blue-royal); /* Bold Biru Royal */
+            color: var(--blue-pro); 
             line-height: 1.4;
             display: block;
         }
 
         .sub-value-pro {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 400;
             color: var(--text-grey);
-            margin-top: 1px;
+            margin-top: 2px;
             display: block;
         }
 
-        /* VERIFIKASI FOOTER */
+        /* FOOTER STATUS DENGAN SHIELD + CENTANG */
         .footer-status {
-            background-color: #f1f8ff;
-            border-radius: 12px;
-            padding: 16px;
+            background-color: #f8faff;
+            border: 1px solid #e1e8ed;
+            border-radius: 16px;
+            padding: 20px;
             display: flex;
-            gap: 12px;
-            margin-top: 5px;
+            gap: 15px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .footer-shield-box {
+            position: relative;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
         .status-text {
-            font-size: 12px;
+            font-size: 13px;
             color: var(--text-grey);
-            line-height: 1.6;
+            line-height: 1.5;
             margin: 0;
         }
 
-        .status-text b { color: var(--blue-royal); }
+        .status-text b { color: var(--blue-pro); }
 
     </style>
 </head>
@@ -174,7 +189,7 @@
             </div>
 
             <div class="info-row">
-                <div class="icon-line"><i class="fa-regular fa-circle-check"></i></div>
+                <div class="icon-line"><i class="fa-regular fa-user-circle"></i></div>
                 <div>
                     <span class="label-pro">Ditandatangani oleh</span>
                     <span class="value-bold-blue">Ns. Miftahul Munir S, S. Kep., CWCCA., CHLQM.</span>
@@ -183,7 +198,7 @@
             </div>
 
             <div class="info-row">
-                <div class="icon-line"><i class="fa-regular fa-clock"></i></div>
+                <div class="icon-line"><i class="fa-regular fa-calendar-alt"></i></div>
                 <div>
                     <span class="label-pro">Tanggal & Waktu</span>
                     <span id="txt-date" class="value-bold-blue">Memuat...</span>
@@ -192,27 +207,29 @@
             </div>
 
             <div class="info-row">
-                <div class="icon-line"><i class="fa-regular fa-id-card"></i></div>
+                <div class="icon-line"><i class="fa-regular fa-fingerprint"></i></div>
                 <div>
                     <span class="label-pro">ID Dokumen</span>
-                    <span id="txt-id" class="value-bold-blue" style="font-family: monospace;">Memuat...</span>
+                    <span id="txt-id" class="value-bold-blue" style="letter-spacing: 1px;">Memuat...</span>
                 </div>
             </div>
 
             <div class="info-row">
-                <div class="icon-line"><i class="fa-regular fa-file-lines"></i></div>
+                <div class="icon-line"><i class="fa-regular fa-file-alt"></i></div>
                 <div>
                     <span class="label-pro">Nama dokumen</span>
                     <span id="txt-doc" class="value-bold-blue">Memuat...</span>
                 </div>
             </div>
 
-            <div class="info-row">
-                <div class="icon-line"><i class="fa-regular fa-shield-halved"></i></div>
-                <div>
-                    <span class="label-pro">Verifikasi</span>
-                    <p class="status-text">Dokumen ini telah ditandatangani secara digital dan <b>terenkripsi</b></p>
+            <div class="footer-status">
+                <div class="footer-shield-box">
+                    <img src="logo-shield.png" style="position:absolute; width:100%;" alt="Shield">
+                    <img src="centang_biru.png" style="position:relative; width:16px; z-index:2;" alt="Check">
                 </div>
+                <p class="status-text">
+                    <b>Verifikasi:</b> Dokumen ini telah ditandatangani secara digital dan <b>terenkripsi</b>.
+                </p>
             </div>
         </div>
     </div>
@@ -220,14 +237,12 @@
     <script>
         const params = new URLSearchParams(window.location.search);
         
-        // Branding Logic
         const pname = params.get('pname') ? decodeURIComponent(params.get('pname')).toLowerCase() : '';
         if (pname.includes('alita medika')) {
             document.getElementById('section-alita').style.display = 'flex';
         }
 
-        // Data Display
-        document.getElementById('txt-doc').innerText = decodeURIComponent(params.get('doc') || 'Surat Internal');
+        document.getElementById('txt-doc').innerText = decodeURIComponent(params.get('doc') || 'Dokumen Resmi');
         document.getElementById('txt-date').innerText = decodeURIComponent(params.get('time') || '-');
         document.getElementById('txt-hour').innerText = decodeURIComponent(params.get('hour') || '-');
         
