@@ -3,53 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Verifikasi Digital - MMS</title>
+    <title>Sistem Verifikasi Dokumen Digital - MMS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --blue: #1a73e8; --dark: #202124; --grey: #5f6368; --bg: #f1f3f4; --green: #2ecc71; }
-        body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background-color: var(--bg); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 15px; }
+        /* 1. PALET WARNA & VARIABEL */
+        :root {
+            --blue-royal: #1a73e8; /* Warna Kepercayaan & Profesionalisme */
+            --text-dark: #202124;  /* Abu-abu Sangat Gelap untuk Teks Utama */
+            --text-grey: #5f6368;  /* Abu-abu Gelap untuk Label & Sub-info */
+            --bg-page: #f8f9fa;   /* Latar Belakang Halaman Bersih */
+            --bg-card: #ffffff;
+            --green-success: #2ecc71;
+        }
+
+        body {
+            font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 15px; /* Menjaga margin di layar HP kecil */
+            box-sizing: border-box;
+        }
+
+        /* 2. RESPONSIVITAS KARTU */
+        .card {
+            background-color: var(--bg-card);
+            width: 100%;
+            max-width: 450px; /* Lebar Proporsional untuk Mobile & Desktop */
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08); /* Shadow Halus & Elegan */
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* 3. HEADER BADGE (BIRU ROYAL) */
+        .header-badge {
+            background-color: var(--blue-royal);
+            color: white;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* --- MEMBUAT BENTUK SHIELD (PERISAI) DENGAN CSS --- */
+        .shield-css {
+            position: relative;
+            width: 28px;
+            height: 32px;
+            background-color: white; /* Warna isi perisai */
+            border-radius: 4px 4px 50% 50% / 4px 4px 20px 20px; /* Bentuk lengkungan bawah */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blue-royal); /* Warna centang di dalam */
+            font-weight: 900;
+            font-size: 18px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        /* Pointed top effect */
+        .shield-css::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-bottom: 5px solid white;
+        }
+
+        .header-title {
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px; /* Kesan Formal */
+            margin: 0;
+        }
+
+        .card-content {
+            padding: 35px 25px;
+        }
+
+        /* 4. BRANDING SECTION (DINAMIS ALITA MEDIKA) */
+        #section-alita {
+            display: none; /* Hidden by default, dipicu JS */
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+        .logo-alita {
+            height: 70px;
+            width: auto;
+            object-fit: contain;
+        }
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        .brand-name {
+            font-size: 16px;
+            font-weight: 900;
+            color: #0d47a1; /* Biru Alita */
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+        .motto {
+            font-size: 11px;
+            font-style: italic;
+            color: var(--text-grey);
+            margin: 4px 0 0 0;
+            line-height: 1.4;
+        }
+
+        /* 5. IKONOGRAFI MINIMALIS (LINE ICON STYLE) */
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
         
-        .card { background: white; width: 100%; max-width: 450px; border-radius: 12px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #ddd; }
+        /* Style Ikon Garis Tipis & Modern */
+        .icon-box {
+            color: var(--text-grey);
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+            margin-top: 2px;
+        }
+
+        .info-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Label Data (Roboto Bold, Grey) */
+        .info-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: #9aa0a6; /* Roboto Grey Light */
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 5px;
+        }
+
+        /* Value Data (Roboto Regular/Medium, Dark) */
+        .info-value {
+            font-size: 14px;
+            color: var(--text-dark);
+            font-weight: 500;
+            line-height: 1.5;
+            word-break: break-word;
+        }
         
-        /* Blue Header Badge */
-        .header-badge { background: var(--blue); color: white; padding: 18px 24px; display: flex; align-items: center; gap: 15px; }
-        .shield-icon { width: 30px; height: 30px; background: white; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--blue); font-size: 20px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .header-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
+        /* Highlight Khusus */
+        .validator-name {
+            font-weight: 700;
+            color: #111;
+            font-size: 14.5px;
+        }
+        .id-style {
+            color: var(--blue-royal);
+            font-family: 'Courier New', Courier, monospace; /* Monospace untuk ID */
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
 
-        .content { padding: 30px 24px; }
+        /* 6. STATUS VERIFIKASI AKHIR (FOOTER) */
+        .status-box {
+            background-color: #e8f0fe; /* Biru Sangat Muda */
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        /* Shield CSS Versi Kecil untuk Status */
+        .shield-min {
+            width: 18px;
+            height: 20px;
+            background-color: var(--blue-royal); /* Perisai Biru */
+            border-radius: 3px 3px 50% 50% / 3px 3px 12px 12px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white; /* Centang Putih */
+            font-size: 12px;
+            font-weight: 900;
+            margin-top: 3px;
+        }
+        .shield-min::before {
+            content: '';
+            position: absolute;
+            top: -3px; left: 0;
+            border-left: 9px solid transparent;
+            border-right: 9px solid transparent;
+            border-bottom: 3px solid var(--blue-royal);
+        }
 
-        /* Branding: Muncul hanya jika Klinik Alita Medika */
-        #section-alita { display: none; align-items: center; gap: 20px; margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 25px; }
-        .logo-alita { height: 75px; width: auto; }
-        .brand-text { display: flex; flex-direction: column; }
-        .brand-name { font-size: 17px; font-weight: 800; color: #004d40; margin: 0; }
-        .motto { font-size: 11px; font-style: italic; color: var(--grey); margin: 3px 0 0 0; line-height: 1.3; }
+        .status-text {
+            font-size: 12.5px;
+            color: #3c4043;
+            line-height: 1.6;
+            margin: 0;
+        }
+        .status-text b {
+            color: var(--blue-royal);
+            font-weight: 700;
+        }
 
-        /* Data Rows */
-        .info-row { display: flex; gap: 20px; margin-bottom: 25px; text-align: left; }
-        .info-icon { font-size: 22px; width: 25px; text-align: center; margin-top: 2px; }
-        .info-content { display: flex; flex-direction: column; }
-        .info-label { font-size: 10px; font-weight: 700; color: #9aa0a6; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
-        .info-value { font-size: 14px; color: var(--dark); font-weight: 600; line-height: 1.5; }
-        .val-name { font-size: 15px; font-weight: 700; color: #111; }
-        .id-style { color: var(--blue); font-family: 'Consolas', monospace; font-size: 14px; font-weight: 700; }
-
-        /* Final Verification Box */
-        .verif-box { background: #e8f0fe; border-radius: 10px; padding: 18px; display: flex; gap: 12px; align-items: flex-start; margin-top: 5px; }
-        .verif-icon { color: var(--blue); font-size: 20px; }
-        .verif-text { font-size: 12.5px; color: #3c4043; line-height: 1.6; margin: 0; }
-        .verif-text b { color: var(--blue); }
+        @media (max-width: 480px) {
+            .card-content { padding: 30px 20px; }
+            .info-row { gap: 15px; }
+            .branding-section { flex-direction: column; align-items: flex-start; }
+            .logo-alita { height: 60px; margin-bottom: 10px; }
+        }
     </style>
 </head>
 <body>
     <div class="card">
         <div class="header-badge">
-            <div class="shield-icon">✓</div>
-            <div class="header-title">TTD Digital Terverifikasi</div>
+            <div class="shield-css">✓</div>
+            <p class="header-title">TTD Digital Terverifikasi</p>
         </div>
 
-        <div class="content">
+        <div class="card-content">
             <div id="section-alita">
-                <img src="https://miftahulmunirs19-source.github.io/verifikasi-klinik/LOGO%20ALITA%20BARU.png" alt="Logo Klinik" class="logo-alita">
+                <img src="https://miftahulmunirs19-source.github.io/verifikasi-klinik/LOGO%20ALITA%20BARU.png" alt="Logo Klinik Alita Medika" class="logo-alita">
                 <div class="brand-text">
                     <p class="brand-name">KLINIK ALITA MEDIKA</p>
                     <p class="motto">"kepuasan pelanggan adalah kebahagian kami"</p>
@@ -57,40 +251,304 @@
             </div>
 
             <div class="info-row">
-                <div class="info-icon">👤</div>
-                <div class="info-content">
+                <div class="icon-box">👤</div>
+                <div class="info-text">
                     <div class="info-label">Ditandatangani Oleh</div>
-                    <div class="info-value val-name">Ns. Miftahul Munir S, S. Kep., CWCCA., CHLQM.</div>
+                    <div class="info-value validator-name">Ns. Miftahul Munir S, S. Kep., CWCCA., CHLQM.Tentu, Pak Miftah. Saya mengerti sepenuhnya. Bapak menginginkan desain yang **lengkap, detail, dan profesional** berdasarkan analisis estetika yang sudah kita sepakati, termasuk membuat bentuk **Perisai (Shield) murni menggunakan CSS** (bukan gambar) untuk header dan ikon status di bagian bawah.
+
+Ini akan memberikan tampilan yang sangat bersih, *load* halaman yang cepat, dan terlihat sangat pro di layar HP maupun desktop.
+
+Berikut adalah paket lengkap file **`index.html`** yang sudah mencakup elemen Perisai CSS, tipografi Roboto, palet warna Biru Royal, dan ikonografi minimalis. Bapak tinggal *copy* seluruh kode ini dan *paste* di GitHub.
+
+### Script Full `index.html` (Silakan Copas)
+
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Verifikasi Dokumen Digital - MMS</title>
+    <link href="[https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap](https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap)" rel="stylesheet">
+    <style>
+        :root {
+            --blue-royal: #1a73e8; /* Warna Kepercayaan & Profesionalisme */
+            --text-dark: #202124;  /* Abu-abu Sangat Gelap untuk Teks Utama */
+            --text-grey: #5f6368;  /* Abu-abu Gelap untuk Label & Sub-info */
+            --bg-page: #f8f9fa;   /* Latar Belakang Halaman Bersih */
+            --bg-card: #ffffff;
+            --green-success: #2ecc71;
+        }
+
+        body {
+            font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 15px; /* Menjaga margin di layar HP kecil */
+            box-sizing: border-box;
+        }
+
+        /* 2. RESPONSIVITAS KARTU */
+        .card {
+            background-color: var(--bg-card);
+            width: 100%;
+            max-width: 450px; /* Lebar Proporsional untuk Mobile & Desktop */
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08); /* Shadow Halus & Elegan */
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* 3. HEADER BADGE (BIRU ROYAL) */
+        .header-badge {
+            background-color: var(--blue-royal);
+            color: white;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* --- MEMBUAT BENTUK SHIELD (PERISAI) DENGAN CSS --- */
+        .shield-css {
+            position: relative;
+            width: 28px;
+            height: 32px;
+            background-color: white; /* Warna isi perisai */
+            border-radius: 4px 4px 50% 50% / 4px 4px 20px 20px; /* Bentuk lengkungan bawah */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blue-royal); /* Warna centang di dalam */
+            font-weight: 900;
+            font-size: 18px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        /* Pointed top effect */
+        .shield-css::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-bottom: 5px solid white;
+        }
+
+        .header-title {
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px; /* Kesan Formal */
+            margin: 0;
+        }
+
+        .card-content {
+            padding: 35px 25px;
+        }
+
+        /* 4. BRANDING SECTION (DINAMIS ALITA MEDIKA) */
+        #section-alita {
+            display: none; /* Hidden by default, dipicu JS */
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+        .logo-alita {
+            height: 70px;
+            width: auto;
+            object-fit: contain;
+        }
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        .brand-name {
+            font-size: 16px;
+            font-weight: 900;
+            color: #0d47a1; /* Biru Alita */
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+        .motto {
+            font-size: 11px;
+            font-style: italic;
+            color: var(--text-grey);
+            margin: 4px 0 0 0;
+            line-height: 1.4;
+        }
+
+        /* 5. IKONOGRAFI MINIMALIS (LINE ICON STYLE) */
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        
+        /* Style Ikon Garis Tipis & Modern */
+        .icon-box {
+            color: var(--text-grey);
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+            margin-top: 2px;
+        }
+
+        .info-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Label Data (Roboto Bold, Grey) */
+        .info-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: #9aa0a6; /* Roboto Grey Light */
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 5px;
+        }
+
+        /* Value Data (Roboto Regular/Medium, Dark) */
+        .info-value {
+            font-size: 14px;
+            color: var(--text-dark);
+            font-weight: 500;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+        
+        /* Highlight Khusus */
+        .validator-name {
+            font-weight: 700;
+            color: #111;
+            font-size: 14.5px;
+        }
+        .id-style {
+            color: var(--blue-royal);
+            font-family: 'Courier New', Courier, monospace; /* Monospace untuk ID */
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* 6. STATUS VERIFIKASI AKHIR (FOOTER) */
+        .status-box {
+            background-color: #e8f0fe; /* Biru Sangat Muda */
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        /* Shield CSS Versi Kecil untuk Status */
+        .shield-min {
+            width: 18px;
+            height: 20px;
+            background-color: var(--blue-royal); /* Perisai Biru */
+            border-radius: 3px 3px 50% 50% / 3px 3px 12px 12px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white; /* Centang Putih */
+            font-size: 12px;
+            font-weight: 900;
+            margin-top: 3px;
+        }
+        .shield-min::before {
+            content: '';
+            position: absolute;
+            top: -3px; left: 0;
+            border-left: 9px solid transparent;
+            border-right: 9px solid transparent;
+            border-bottom: 3px solid var(--blue-royal);
+        }
+
+        .status-text {
+            font-size: 12.5px;
+            color: #3c4043;
+            line-height: 1.6;
+            margin: 0;
+        }
+        .status-text b {
+            color: var(--blue-royal);
+            font-weight: 700;
+        }
+
+        @media (max-width: 480px) {
+            .card-content { padding: 30px 20px; }
+            .info-row { gap: 15px; }
+            .branding-section { flex-direction: column; align-items: flex-start; }
+            .logo-alita { height: 60px; margin-bottom: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header-badge">
+            <div class="shield-css">✓</div>
+            <p class="header-title">TTD Digital Terverifikasi</p>
+        </div>
+
+        <div class="card-content">
+            <div id="section-alita">
+                <img src="[https://miftahulmunirs19-source.github.io/verifikasi-klinik/LOGO%20ALITA%20BARU.png](https://miftahulmunirs19-source.github.io/verifikasi-klinik/LOGO%20ALITA%20BARU.png)" alt="Logo Klinik Alita Medika" class="logo-alita">
+                <div class="brand-text">
+                    <p class="brand-name">KLINIK ALITA MEDIKA</p>
+                    <p class="motto">"kepuasan pelanggan adalah kebahagian kami"</p>
                 </div>
             </div>
 
             <div class="info-row">
-                <div class="info-icon">📅</div>
-                <div class="info-content">
+                <div class="icon-box">👤</div>
+                <div class="info-text">
+                    <div class="info-label">Ditandatangani Oleh</div>
+                    <div class="info-value validator-name">Ns. Miftahul Munir S, S. Kep., CWCCA., CHLQM.</div>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="icon-box">📅</div>
+                <div class="info-text">
                     <div class="info-label">Tanggal & Waktu Penandatanganan</div>
-                    <div id="waktu" class="info-value">Memuat...</div>
+                    <div id="waktu-ttd" class="info-value">Memuat...</div>
                 </div>
             </div>
 
             <div class="info-row">
-                <div class="info-icon">🆔</div>
-                <div class="info-content">
+                <div class="icon-box">🆔</div>
+                <div class="info-text">
                     <div class="info-label">ID Dokumen</div>
-                    <div id="id-dok" class="info-value id-style">Memuat...</div>
+                    <div id="kode-dokumen" class="info-value id-style">Memuat...</div>
                 </div>
             </div>
 
             <div class="info-row">
-                <div class="info-icon">📄</div>
-                <div class="info-content">
+                <div class="icon-box">📄</div>
+                <div class="info-text">
                     <div class="info-label">Nama Dokumen</div>
-                    <div id="nama-dok" class="info-value">Memuat...</div>
+                    <div id="nama-dokumen" class="info-value">Memuat...</div>
                 </div>
             </div>
 
-            <div class="verif-box">
-                <div class="verif-icon">✓</div>
-                <p class="verif-text">
+            <div class="status-box">
+                <div class="shield-min">✓</div>
+                <p class="status-text">
                     Verifikasi dokumen: Dokumen ini telah ditandatangani secara digital dan <b>terenkripsi</b>.
                 </p>
             </div>
@@ -98,25 +556,31 @@
     </div>
 
     <script>
-        const params = new URLSearchParams(window.location.search);
+        const urlParams = new URLSearchParams(window.location.search);
         
-        // Logika Branding
-        const pname = params.get('pname') ? decodeURIComponent(params.get('pname')).toLowerCase() : '';
+        // --- LOGIKA MENAMPILKAN LOGO ALITA JIKA PENERIMA TERISI ALITA ---
+        // pname diambil dari Apps Script &pname=
+        const pname = urlParams.get('pname') ? decodeURIComponent(urlParams.get('pname')).toLowerCase() : '';
         const sectionAlita = document.getElementById('section-alita');
+
         if (pname.includes('alita medika')) {
             sectionAlita.style.display = 'flex';
         }
 
-        // Pengisian Data
-        document.getElementById('nama-dok').innerText = decodeURIComponent(params.get('doc') || 'Dokumen Resmi');
-        document.getElementById('waktu').innerText = decodeURIComponent(params.get('time') || '-');
-        
-        const idEnc = params.get('id');
+        // --- MENGAMBIL DATA VERIFIKASI DARI URL ---
+        const docName = urlParams.get('doc');
+        document.getElementById('nama-dokumen').innerText = docName ? decodeURIComponent(docName) : 'Dokumen Internal Profesional';
+
+        const idParam = urlParams.get('id');
         try {
-            document.getElementById('id-dok').innerText = idEnc ? atob(idEnc) : 'UNREGISTERED';
+            // Decode Base64 untuk menampilkan ID asli (MMS-xxxx)
+            document.getElementById('kode-dokumen').innerText = idParam ? atob(idParam) : 'UNREGISTERED';
         } catch(e) {
-            document.getElementById('id-dok').innerText = idEnc || 'UNREGISTERED';
+            document.getElementById('kode-dokumen').innerText = idParam || 'UNREGISTERED';
         }
+        
+        const timeParam = urlParams.get('time');
+        document.getElementById('waktu-ttd').innerText = timeParam ? decodeURIComponent(timeParam) : "Waktu tidak tersedia";
     </script>
 </body>
 </html>
