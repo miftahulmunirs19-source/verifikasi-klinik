@@ -173,17 +173,21 @@
     </div>
 
     <script>
-        // Mengambil data dari URL browser
         const urlParams = new URLSearchParams(window.location.search);
         
-        // Ambil dan tampilkan Nama Dokumen
+        // Ambil data Nama Dokumen
         const docName = urlParams.get('doc');
         document.getElementById('nama-dokumen').innerText = docName ? decodeURIComponent(docName) : 'Tidak Diketahui';
 
-        // Ambil dan tampilkan ID
-        document.getElementById('kode-dokumen').innerText = urlParams.get('id') || 'UNREGISTERED';
+        // Ambil ID dan DECODE kembali agar muncul MMS-xxx (Bukan kode acak)
+        const idParam = urlParams.get('id');
+        try {
+            document.getElementById('kode-dokumen').innerText = idParam ? atob(idParam) : 'UNREGISTERED';
+        } catch(e) {
+            document.getElementById('kode-dokumen').innerText = idParam || 'UNREGISTERED';
+        }
         
-        // Ambil dan tampilkan Waktu
+        // Ambil data Waktu
         const timeParam = urlParams.get('time');
         document.getElementById('waktu-ttd').innerText = timeParam ? decodeURIComponent(timeParam) : "Waktu tidak tersedia";
     </script>
