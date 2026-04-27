@@ -38,6 +38,7 @@
             border: 1px solid var(--border-color);
         }
 
+        /* HEADER DENGAN SHIELD + CENTANG SUPER BESAR */
         .header-badge {
             background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
             color: var(--white);
@@ -59,6 +60,7 @@
 
         .card-content { padding: 32px 35px; }
 
+        /* BRANDING ALITA (PROPORSIONAL) */
         #section-alita {
             display: none; align-items: center; gap: 16px;
             margin-bottom: 24px; padding-bottom: 24px;
@@ -66,15 +68,9 @@
         }
         .logo-alita { height: 68px; width: auto; object-fit: contain; }
         .brand-name { font-size: 16px; font-weight: 700; color: var(--dark-blue); margin: 0; }
-        /* Motto dirapikan agar lebih estetik */
-        .motto { 
-            font-size: 10.5px; 
-            font-style: italic; 
-            color: var(--text-sec); 
-            margin: 6px 0 0 0; 
-            line-height: 1.4;
-        }
+        .motto { font-size: 11px; font-style: italic; color: var(--text-sec); margin: 4px 0 0 0; }
 
+        /* DATA INFO ROWS (8px spacing) */
         .info-item {
             display: flex; gap: 20px; margin-bottom: 24px; align-items: flex-start;
         }
@@ -94,19 +90,20 @@
             line-height: 1.4; display: block;
         }
 
-        /* PERBAIKAN: PENGATURAN NAMA 2 BARIS */
+        /* PENGATURAN NAMA 2 BARIS */
         .val-name { 
             white-space: normal; /* Mengizinkan teks turun ke baris baru */
-            overflow: visible; 
+            word-wrap: break-word;
             max-width: 100%; 
             display: -webkit-box;
             -webkit-line-clamp: 2; /* Batas maksimal 2 baris */
             -webkit-box-orient: vertical;
-            word-wrap: break-word; /* Memastikan gelar panjang tetap rapi */
+            overflow: hidden;
         }
         
         .sub-value { font-size: 13px; color: var(--text-sec); margin-top: 2px; display: block; }
 
+        /* FOOTER VERIFIKASI SEJAJAR - PERISAI DI-SHADOW AGAR JELAS */
         .footer-shield-container {
             position: relative; width: 42px; height: 42px;
             background-color: var(--bg-soft); border-radius: 10px;
@@ -115,11 +112,12 @@
         }
         .img-shield-min { 
             position: absolute; width: 80%; height: 80%; object-fit: contain; 
-            filter: drop-shadow(0px 2px 4px rgba(26, 43, 73, 0.25)); 
+            filter: drop-shadow(0px 2px 4px rgba(26, 43, 73, 0.25)); /* Agar putih terlihat di atas biru muda */
         }
         .img-check-min { position: relative; width: 22px; height: 22px; z-index: 2; }
 
         @media (max-width: 400px) {
+            .val-name { font-size: 14.5px; }
             .card-content { padding: 32px 20px; }
         }
     </style>
@@ -140,7 +138,7 @@
                 <img src="https://raw.githubusercontent.com/miftahulmunirs19-source/verifikasi-klinik/main/LOGO%20ALITA%20BARU.png" class="logo-alita" alt="Alita Logo">
                 <div>
                     <p class="brand-name">KLINIK ALITA MEDIKA</p>
-                    <p class="motto">"Kepuasan pelanggan adalah kebahagiaan kami"</p>
+                    <p class="motto">"kepuasan pelanggan adalah kebahagian kami"</p>
                 </div>
             </div>
 
@@ -186,7 +184,7 @@
                 <div>
                     <div class="label" style="margin-bottom: 2px;">Verifikasi</div>
                     <div class="sub-value" style="color: var(--dark-blue); font-weight: 500; font-size: 12.5px; line-height: 1.4;">
-                        Dokumen ditandatangani secara digital dan terenkripsi.
+                        Dokumen ini telah ditandatangani secara digital dan terenkripsi.
                     </div>
                 </div>
             </div>
@@ -195,11 +193,14 @@
 
     <script>
         const params = new URLSearchParams(window.location.search);
+        
+        // Cek Nama Penerima
         const pname = params.get('pname') ? decodeURIComponent(params.get('pname')).toLowerCase() : '';
         if (pname.includes('alita medika')) {
             document.getElementById('section-alita').style.display = 'flex';
         }
 
+        // Tampilkan Data Verifikasi
         document.getElementById('txt-doc').innerText = decodeURIComponent(params.get('doc') || 'Dokumen Resmi');
         document.getElementById('txt-date').innerText = decodeURIComponent(params.get('time') || '-');
         document.getElementById('txt-hour').innerText = decodeURIComponent(params.get('hour') || '-');
