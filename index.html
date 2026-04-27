@@ -3,123 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Verifikasi Digital - MMS</title>
+    <title>Verifikasi Dokumen Digital - MMS</title>
     <style>
-        :root { --teal: #00695c; --blue: #1a73e8; --grey-light: #f4f7f9; --text-dark: #222; --text-light: #666; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--grey-light); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
+        :root { --blue-pro: #1a73e8; --text-main: #202124; --text-sub: #5f6368; --bg-body: #f8f9fa; }
+        body { font-family: 'Roboto', 'Segoe UI', Arial, sans-serif; background-color: var(--bg-body); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 15px; }
         
-        .card { background: white; width: 100%; max-width: 480px; padding: 0; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.06); border: 1px solid #e1e8ed; overflow: hidden; position: relative; }
+        .card { background: #ffffff; width: 100%; max-width: 450px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow: hidden; border: 1px solid #e0e0e0; }
         
-        /* Bedge Header (Biru) */
-        .badge-header { background-color: var(--blue); color: white; display: flex; align-items: center; padding: 15px 25px; border-bottom: 1px solid #e1e8ed; }
-        .badge-icon { font-size: 24px; font-weight: bold; margin-right: 15px; }
-        .badge-title { font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        /* Header Blue Badge */
+        .header-badge { background: var(--blue-pro); color: white; padding: 16px 24px; display: flex; align-items: center; gap: 12px; }
+        .icon-check { background: white; color: var(--blue-pro); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; }
+        .header-title { font-size: 15px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
 
-        .card-content { padding: 30px; }
+        .content { padding: 32px 24px; }
 
-        /* Tampilan Logo Ganda (Alita & MMS) */
-        .branding-container { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 30px; text-align: left; }
-        .branding-row { display: flex; align-items: center; width: 100%; }
-        
-        /* Logo Utama */
-        .logo-main { max-height: 70px; margin-right: 20px; }
-        
-        /* Text Branding */
-        .branding-text { display: flex; flex-direction: column; }
-        .brand-name { color: #004d40; font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 4px 0; }
-        .motto { color: var(--text-light); font-size: 10px; font-style: italic; line-height: 1.4; margin: 0; white-space: nowrap; }
+        /* Branding Section: Muncul hanya untuk Alita Medika */
+        .branding-section { display: none; align-items: center; margin-bottom: 32px; gap: 16px; }
+        .logo-alita { height: 65px; width: auto; object-fit: contain; }
+        .brand-info { display: flex; flex-direction: column; }
+        .brand-name { font-size: 16px; font-weight: 800; color: #0d47a1; margin: 0; letter-spacing: 0.5px; }
+        .motto { font-size: 11px; font-style: italic; color: #757575; margin: 2px 0 0 0; }
 
-        /* Pembatas Elemen */
-        .divider-main { height: 1px; background-color: #eee; margin: 25px 0; border: none; }
+        .divider { height: 1px; background: #eeeeee; margin: 24px 0; border: none; }
 
-        /* Blok Data (Sepert Model Contoh) */
-        .data-row { display: flex; align-items: flex-start; margin-bottom: 20px; text-align: left; }
-        .data-icon-container { width: 32px; font-size: 22px; color: var(--text-light); margin-right: 18px; display: flex; justify-content: center; margin-top: 1px; }
-        .data-text { flex: 1; display: flex; flex-direction: column; }
-        
-        .data-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; margin-bottom: 4px; }
-        
-        .data-value { font-size: 13px; color: var(--text-dark); font-weight: 600; line-height: 1.5; word-break: break-word; }
-        .validator-name { color: #111; font-weight: 700; font-size: 14px; }
-        .id-highlight { color: var(--blue); font-weight: 800; font-size: 13px; }
-        
-        /* Area Status Verifikasi Akhir */
-        .final-status { background-color: #e8f0fe; border-left: 5px solid var(--blue); border-radius: 6px; padding: 15px; text-align: left; margin-top: 10px; }
-        .status-msg { font-size: 12px; color: #444; line-height: 1.6; }
-        .status-msg b { color: var(--blue); }
+        /* Data Info Grid */
+        .info-row { display: flex; gap: 16px; margin-bottom: 24px; }
+        .info-icon { font-size: 20px; color: var(--text-sub); width: 24px; text-align: center; }
+        .info-content { display: flex; flex-direction: column; }
+        .info-label { font-size: 11px; font-weight: 700; color: #9aa0a6; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px; }
+        .info-value { font-size: 14px; color: var(--text-main); font-weight: 600; line-height: 1.4; }
+        .id-text { color: var(--blue-pro); font-family: 'Courier New', Courier, monospace; font-weight: 800; }
 
-        .hidden { display: none !important; }
-        
-        @media (max-width: 480px) {
-            .card { max-width: 100%; border-radius: 8px; }
-            .card-content { padding: 25px 20px; }
-            .branding-row { flex-direction: column; align-items: flex-start; text-align: left; }
-            .logo-main { margin-right: 0; margin-bottom: 15px; max-height: 60px; }
-            .motto { white-space: normal; }
-        }
+        /* Footer Status */
+        .footer-status { background: #f1f8ff; border-radius: 12px; padding: 16px; display: flex; gap: 12px; align-items: flex-start; margin-top: 8px; }
+        .footer-icon { color: var(--blue-pro); font-size: 18px; font-weight: bold; }
+        .footer-text { font-size: 12px; color: #3c4043; line-height: 1.5; }
+        .footer-text b { color: var(--blue-pro); }
     </style>
 </head>
 <body>
     <div class="card">
-        <div class="badge-header">
-            <span class="badge-icon">✓</span>
-            <span class="badge-title">TTD Digital Terverifikasi</span>
+        <div class="header-badge">
+            <div class="icon-check">✓</div>
+            <div class="header-title">TTD Digital Terverifikasi</div>
         </div>
 
-        <div class="card-content">
-            <div id="branding" class="branding-container">
-                <div class="branding-row">
-                    <img id="logo-main" src="https://miftahulmunirs19-source.github.io/verifikasi-klinik/logo-alita.png" alt="Logo Utama" class="logo-main">
-                    <div class="branding-text">
-                        <p id="brand-name" class="brand-name">KLINIK ALITA MEDIKA</p>
-                        <p id="motto" class="motto hidden">kepuasan pelanggan adalah kebahagian kami</p>
-                    </div>
-                </div>
-            </div>
-            
-            <hr class="divider-main">
-
-            <div class="data-row">
-                <div class="data-icon-container">👤</div>
-                <div class="data-text">
-                    <div class="data-label">Ditandatangani oleh</div>
-                    <div id="validator-name" class="data-value validator-name">Ns. Miftahul Munir S, S. Kep., CWCCA., CHLQM.</div>
+        <div class="content">
+            <div id="section-alita" class="branding-section">
+                <img src="https://miftahulmunirs19-source.github.io/verifikasi-klinik/LOGO%20ALITA%20BARU.png" alt="Logo Alita" class="logo-alita">
+                <div class="brand-info">
+                    <p class="brand-name">KLINIK ALITA MEDIKA</p>
+                    <p class="motto">"kepuasan pelanggan adalah kebahagian kami"</p>
                 </div>
             </div>
 
-            <div class="data-row">
-                <div class="data-icon-container">📅</div>
-                <div class="data-text">
-                    <div class="data-label">Tanggal & Waktu Penandatanganan</div>
-                    <div id="waktu-ttd" class="data-value">Memuat...</div>
+            <div class="info-row">
+                <div class="info-icon">👤</div>
+                <div class="info-content">
+                    <div class="info-label">Ditandatangani Oleh</div>
+                    <div class="info-value">Ns. Miftahul Munir S, S. Kep., CWCCA., CHLQM.</div>
                 </div>
             </div>
 
-            <div class="data-row">
-                <div class="data-icon-container">🆔</div>
-                <div class="data-text">
-                    <div class="data-label">ID Verifikasi Dokumen</div>
-                    <div id="kode-dokumen" class="data-value id-highlight">Memuat...</div>
+            <div class="info-row">
+                <div class="info-icon">📅</div>
+                <div class="info-content">
+                    <div class="info-label">Tanggal & Waktu Penandatanganan</div>
+                    <div id="waktu-ttd" class="info-value">Memuat...</div>
                 </div>
             </div>
 
-            <div class="data-row">
-                <div class="data-icon-container">📄</div>
-                <div class="data-text">
-                    <div class="data-label">Nama Dokumen</div>
-                    <div id="nama-dokumen" class="data-value">Memuat...</div>
+            <div class="info-row">
+                <div class="info-icon">🆔</div>
+                <div class="info-content">
+                    <div class="info-label">ID Dokumen</div>
+                    <div id="kode-dokumen" class="info-value id-text">Memuat...</div>
                 </div>
             </div>
 
-            <div class="final-status">
-                <div class="data-row" style="margin-bottom: 0;">
-                    <div class="data-icon-container" style="font-size: 18px; margin-top: -3px; color: var(--blue);">✓</div>
-                    <div class="data-text">
-                        <div class="data-label" style="color: var(--blue); font-weight: bold;">Verifikasi</div>
-                        <div class="status-msg">
-                            Dokumen ini telah ditandatangani secara digital dan <b>terenkripsi</b>.
-                        </div>
-                    </div>
+            <div class="info-row">
+                <div class="info-icon">📄</div>
+                <div class="info-content">
+                    <div class="info-label">Nama Dokumen</div>
+                    <div id="nama-dokumen" class="info-value">Memuat...</div>
+                </div>
+            </div>
+
+            <div class="footer-status">
+                <div class="footer-icon">✓</div>
+                <div class="footer-text">
+                    Verifikasi dokumen: Dokumen ini telah ditandatangani secara digital dan <b>terenkripsi</b>.
                 </div>
             </div>
         </div>
@@ -128,29 +101,17 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         
-        // --- LOGIKA MENAMPILKAN LOGO ALITA JIKA PENERIMA TERISI ALITA ---
+        // 1. Cek Penerima untuk Logo
         const pname = urlParams.get('pname') ? decodeURIComponent(urlParams.get('pname')).toLowerCase() : '';
-        const logoMain = document.getElementById('logo-main');
-        const mottoText = document.getElementById('motto');
-        const brandName = document.getElementById('brand-name');
-
+        const sectionAlita = document.getElementById('section-alita');
+        
         if (pname.includes('alita medika')) {
-            // Gunakan logo Alita yang sudah ada di repositori Bapak
-            logoMain.src = "https://miftahulmunirs19-source.github.io/verifikasi-klinik/logo-alita.png";
-            mottoText.classList.remove('hidden');
-            brandName.classList.add('hidden'); // Sembunyikan tulisan jika pakai logo tulisan
-        } else {
-            // Kembali ke logo pribadi MMS Bapak
-            logoMain.src = "https://miftahulmunirs19-source.github.io/verifikasi-klinik/logo-mms.png";
-            brandName.innerText = "MMS PROFESSIONAL";
-            mottoText.classList.add('hidden');
-            brandName.classList.remove('hidden');
+            sectionAlita.style.display = 'flex';
         }
 
-        // --- MENGAMBIL DATA VERIFIKASI ---
-        const docName = urlParams.get('doc');
-        document.getElementById('nama-dokumen').innerText = docName ? decodeURIComponent(docName) : 'Tidak Diketahui';
-
+        // 2. Data Dokumen
+        document.getElementById('nama-dokumen').innerText = decodeURIComponent(urlParams.get('doc') || 'Dokumen Resmi');
+        
         const idParam = urlParams.get('id');
         try {
             document.getElementById('kode-dokumen').innerText = idParam ? atob(idParam) : 'UNREGISTERED';
@@ -158,8 +119,7 @@
             document.getElementById('kode-dokumen').innerText = idParam || 'UNREGISTERED';
         }
         
-        const timeParam = urlParams.get('time');
-        document.getElementById('waktu-ttd').innerText = timeParam ? decodeURIComponent(timeParam) : "Waktu tidak tersedia";
+        document.getElementById('waktu-ttd').innerText = decodeURIComponent(urlParams.get('time') || '-');
     </script>
 </body>
 </html>
