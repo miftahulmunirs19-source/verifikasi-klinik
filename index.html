@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
-            --midnight: #0a2351; /* Warna Biru Pro Gelap */
+            --midnight: #0a2351;
             --text-dark: #1a1c1e;
             --text-grey: #444746;
             --bg-page: #eef2f6;
@@ -27,7 +27,6 @@
             overflow: hidden; border: 1px solid #d1d9e0;
         }
 
-        /* HEADER DENGAN LOGO SHIELD + CENTANG BAPAK */
         .header-badge {
             background-color: var(--midnight); color: white;
             padding: 28px 24px; display: flex; align-items: center; gap: 18px;
@@ -48,7 +47,6 @@
 
         .card-content { padding: 35px 28px; }
 
-        /* BRANDING ALITA SECTION */
         #section-alita {
             display: none; align-items: center; gap: 18px;
             margin-bottom: 35px; padding-bottom: 25px; border-bottom: 1px solid #f0f0f0;
@@ -57,7 +55,6 @@
         .brand-name { font-size: 17px; font-weight: 900; color: #0d47a1; margin: 0; }
         .motto { font-size: 11px; font-style: italic; color: var(--text-grey); margin: 4px 0 0 0; }
 
-        /* DATA INFO ROWS */
         .info-row { display: flex; gap: 22px; margin-bottom: 30px; align-items: flex-start; }
         .icon-line { font-size: 24px; color: var(--midnight); width: 28px; text-align: center; margin-top: 4px; }
         
@@ -65,7 +62,6 @@
         .value-bold-blue { font-size: 16px; font-weight: 700; color: var(--midnight); line-height: 1.4; display: block; }
         .sub-value-pro { font-size: 12px; font-weight: 400; color: var(--text-grey); margin-top: 2px; display: block; }
 
-        /* FOOTER STATUS VERIFIKASI */
         .footer-status {
             background-color: #f8faff; border: 1px solid #e1e8ed; border-radius: 16px;
             padding: 20px; display: flex; gap: 15px; align-items: center; margin-top: 10px;
@@ -114,8 +110,8 @@
                 <div class="icon-line"><i class="fa-regular fa-calendar-check"></i></div>
                 <div>
                     <span class="label-pro">Tanggal & Waktu</span>
-                    <span id="txt-date" class="value-bold-blue">Memuat...</span>
-                    <span id="txt-hour" class="sub-value-pro">Memuat...</span>
+                    <span id="txt-date" class="value-bold-blue">-</span>
+                    <span id="txt-hour" class="sub-value-pro">-</span>
                 </div>
             </div>
 
@@ -123,7 +119,7 @@
                 <div class="icon-line"><i class="fa-regular fa-id-card"></i></div>
                 <div>
                     <span class="label-pro">ID Dokumen</span>
-                    <span id="txt-id" class="value-bold-blue" style="letter-spacing: 1px;">Memuat...</span>
+                    <span id="txt-id" class="value-bold-blue" style="letter-spacing: 1px;">-</span>
                 </div>
             </div>
 
@@ -131,7 +127,7 @@
                 <div class="icon-line"><i class="fa-regular fa-file-lines"></i></div>
                 <div>
                     <span class="label-pro">Nama dokumen</span>
-                    <span id="txt-doc" class="value-bold-blue">Memuat...</span>
+                    <span id="txt-doc" class="value-bold-blue">-</span>
                 </div>
             </div>
 
@@ -149,14 +145,11 @@
 
     <script>
         const params = new URLSearchParams(window.location.search);
-        
-        // Cek Nama Penerima
         const pname = params.get('pname') ? decodeURIComponent(params.get('pname')).toLowerCase() : '';
         if (pname.includes('alita medika')) {
             document.getElementById('section-alita').style.display = 'flex';
         }
 
-        // Tampilkan Data Verifikasi
         document.getElementById('txt-doc').innerText = decodeURIComponent(params.get('doc') || 'Dokumen Resmi');
         document.getElementById('txt-date').innerText = decodeURIComponent(params.get('time') || '-');
         document.getElementById('txt-hour').innerText = decodeURIComponent(params.get('hour') || '-');
